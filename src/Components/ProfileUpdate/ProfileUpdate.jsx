@@ -101,8 +101,8 @@ const navigate = useNavigate();
                     gender: gender,
                     mobileNumber: mobileNumber
                 }
-                const response = await axios.post(`http://localhost:3000/update`, data, config)
-                successAlert("Updated Successfully");
+                const response = await axios.post(`http://52.90.159.84:3000/update`, data, config)
+                successAlert("Updated Successfully Check Mail");
                 // navigate("/login");
               }
               catch(err){
@@ -122,14 +122,16 @@ const navigate = useNavigate();
     useEffect(()=>{
         const fetchData = async() =>{ 
             try{
-                const response = await axios.get("http://localhost:3000/data", config);
+                const response = await axios.get("http://52.90.159.84:3000/data", config);
                 const data = response.data;
-                const date = new Date(data.dob).toISOString().split('T')[0];
-                setName(data.name);
-                setEmail(data.email);
-                setMobileNumber(data.mobileNumber);
-                setAge(data.age);
-                setDateOfBirth(date);
+		if('dob' in data){
+                const date = new Date(data?.dob ?? '').toISOString().split('T')[0];
+                setDateOfBirth(date ?? '');
+		}
+                setName(data?.name ?? '');
+                setEmail(data?.email ?? '');
+                setMobileNumber(data?.mobileNumber ?? '');
+                setAge(data?.age ?? '');
             }catch(err){
                 console.error(err);
             }
@@ -156,7 +158,7 @@ const navigate = useNavigate();
                     )}</div>
                 </div>
                 <div className="input-control">
-                    <label htmlFor="dateOfBirth">Date of birth</label>
+                    <label htmlFor="dateOfBirth">Date of birth(minimum 3 years)</label>
                     <input id="dateOfBirth" name="dateOfBirth" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} onBlur={validDateOfBirth} max={maxDate.toISOString().split('T')[0]} />
                     <div className="error">{!isValidDateOfBirth && (
                         "Invalid Date"
@@ -186,7 +188,7 @@ const navigate = useNavigate();
                         "Invalid Mobile number"
                     )}</div>
                 </div>
-                <button type="button" onClick={validateForm}>Sign Up</button>
+                <button type="button" onClick={validateForm}>Update</button>
             </form>
         </>
     )

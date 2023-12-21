@@ -57,7 +57,7 @@ const SignUp = () => {
 
   const formSubmit = async (e) => {
     try{
-      const response = await axios.post('http://localhost:3000/signup', { name: name, email: email, password: password })
+      const response = await axios.post('http://52.90.159.84:3000/signup', { name: name, email: email, password: password })
       successAlert("Registered Successfully");
       navigate("/login");
     }
@@ -135,14 +135,14 @@ const SignUp = () => {
               </div>
 
               <button className="button signup__submit" onClick={validForm}>
-                <span className="button__text">Log In Now</span>
+                <span className="button__text">SignUp Now</span>
               </button>
             </form>
             <div className="social-signup">
               <h3>Already have an account</h3>
               <div className="social-icons">
                 <button className="button signup__submit">
-                  <span className="button__text">signup Now</span>
+                  <span className="button__text">Login Now</span>
                 </button>
               </div>
             </div>

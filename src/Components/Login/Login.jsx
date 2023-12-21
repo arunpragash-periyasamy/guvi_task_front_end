@@ -40,7 +40,7 @@ const Login = () => {
 
   const authenticate = async() =>{
     try{
-        const response = await axios.post("http://localhost:3000/login", {email:email, password: password});
+        const response = await axios.post("http://52.90.159.84:3000/login", {email:email, password: password});
         const done = await login(response.data);
         successAlert("Authentication success")
         if(done)navigate("/dashboard");
