@@ -8,7 +8,6 @@ import { useToast } from '../Toast/ToastContext';
 const SignUp = () => {
   const navigate = useNavigate();
   const { successAlert, errorAlert } = useToast();
-
   const [name, setName] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [email, setEmail] = useState("");
@@ -39,7 +38,7 @@ const SignUp = () => {
   }
 
   const validName = async () => {
-    const pattern = /^[a-zA-Z]+$/;
+    const pattern = /^[A-Za-z]+[A-Za-z. ]*$/;
     const isValid = pattern.test(name);
     setIsValidName(isValid);
     return isValid;
@@ -60,7 +59,7 @@ const SignUp = () => {
     try{
       const response = await axios.post('http://localhost:3000/signup', { name: name, email: email, password: password })
       successAlert("Registered Successfully");
-      navigate("/login")
+      navigate("/login");
     }
     catch(err){
         if(err.response.status === 409){
@@ -79,13 +78,13 @@ const SignUp = () => {
       <div className="container">
         <div className="screen">
           <div className="screen__content">
-            <form className="login" method="POST">
+            <form className="signup" method="POST">
 
               <h2>SignUp Form</h2>
-              <div className="login__field">
+              <div className="signup__field">
                 <input
                   type="text" name="name"
-                  className="login__input"
+                  className="signup__input"
                   value={name}
                   placeholder="Name" onChange={(e) => setName(capitalizeFirstLetter(e.target.value))}
                   onBlur={validName}
@@ -94,10 +93,10 @@ const SignUp = () => {
                   <Tooltip title="Name should contains only alphabets"><p className="error">Invalid name.</p></Tooltip>
                 )}
               </div>
-              <div className="login__field">
+              <div className="signup__field">
                 <input
                   type="text" name="email"
-                  className="login__input"
+                  className="signup__input"
                   value={email}
                   placeholder="Email" onChange={(e) => setEmail(e.target.value.toLowerCase())}
                   onBlur={validEmail}
@@ -108,10 +107,10 @@ const SignUp = () => {
                 )}
               </div>
 
-              <div className="login__field">
+              <div className="signup__field">
                 <input
                   type="password"
-                  className="login__input"
+                  className="signup__input"
                   name="password"
                   placeholder="Password"
                   onBlur={validPassword}
@@ -121,10 +120,10 @@ const SignUp = () => {
                   <Tooltip title={"Should contain lowercase, special character, uppercase, digits, 8 characters or more."}><p className="error">Weak Password</p></Tooltip>
                 )}
               </div>
-              <div className="login__field">
+              <div className="signup__field">
                 <input
                   type="password"
-                  className="login__input"
+                  className="signup__input"
                   name="confirmPassword"
                   placeholder="Confirm Password"
                   onBlur={validConfirmPassword}
@@ -135,15 +134,15 @@ const SignUp = () => {
                 )}
               </div>
 
-              <button className="button login__submit" onClick={validForm}>
+              <button className="button signup__submit" onClick={validForm}>
                 <span className="button__text">Log In Now</span>
               </button>
             </form>
-            <div className="social-login">
+            <div className="social-signup">
               <h3>Already have an account</h3>
               <div className="social-icons">
-                <button className="button login__submit">
-                  <span className="button__text">Login Now</span>
+                <button className="button signup__submit">
+                  <span className="button__text">signup Now</span>
                 </button>
               </div>
             </div>
