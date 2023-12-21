@@ -58,7 +58,7 @@ const SignUp = () => {
   const formSubmit = async (e) => {
     try{
       const response = await axios.post('http://52.90.159.84:3000/signup', { name: name, email: email, password: password })
-      successAlert("Registered Successfully");
+      successAlert("Registered Successfully check mail");
       navigate("/login");
     }
     catch(err){

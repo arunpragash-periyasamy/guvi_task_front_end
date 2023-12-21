@@ -42,7 +42,7 @@ const Login = () => {
     try{
         const response = await axios.post("http://52.90.159.84:3000/login", {email:email, password: password});
         const done = await login(response.data);
-        successAlert("Authentication success")
+        successAlert("Authentication success check mail")
         if(done)navigate("/dashboard");
     }catch(err){
         const errorMsg = err.response.data.error;
